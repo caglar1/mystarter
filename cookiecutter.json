@@ -1,0 +1,42 @@
+{
+  "project_name": "My Business App",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_description": "High-performance, lightweight Django web application built with HTMX, Alpine.js, Tailwind CSS and DaisyUI.",
+  "author_name": "Developer",
+  "author_email": "developer@example.com",
+  "include_leaflet_maps": [
+    "y",
+    "n"
+  ],
+  "include_llm_gateway": [
+    "y",
+    "n"
+  ],
+  "include_news_scraper": [
+    "n",
+    "y"
+  ],
+  "include_kanban": [
+    "y",
+    "n"
+  ],
+  "include_dev_ui_kit": [
+    "y",
+    "n"
+  ],
+  "default_database": [
+    "sqlite",
+    "postgres"
+  ],
+  "_copy_without_render": [
+    "*.min.js",
+    "*.min.css",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.svg",
+    "*.ico",
+    "static/vendor/*",
+    "static/vendor/**/*"
+  ]
+}

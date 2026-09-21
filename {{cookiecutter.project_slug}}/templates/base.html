@@ -1,0 +1,93 @@
+{% raw %}{% load static %}
+{% load django_htmx %}
+<!DOCTYPE html>
+<html lang="tr" data-theme="corporate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>{% block title %}{% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endraw %}{{ cookiecutter.project_description }}{% raw %}{% endblock %}">
+
+    <!-- Progressive Web App (PWA) -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <meta name="theme-color" content="#1e40af">
+
+    <!-- DaisyUI & Core CSS (100% Self-Hosted) -->
+    <link rel="stylesheet" href="{% static 'vendor/daisyui/daisyui.min.css' %}">
+{% endraw %}
+{% if cookiecutter.include_leaflet_maps == "y" %}
+{% raw %}    <link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">{% endraw %}
+{% endif %}
+{% raw %}
+    <!-- Tailwind Dual-Strategy: Play CDN in Dev, Compiled styles in Prod -->
+    {% if debug %}
+        <script src="https://cdn.tailwindcss.com"></script>
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+    {% endif %}
+
+    <!-- Core Self-Hosted JS Engines -->
+    <script src="{% static 'vendor/htmx/htmx.min.js' %}"></script>
+    {% django_htmx_script %}
+    <script defer src="{% static 'vendor/alpine/alpine.min.js' %}"></script>
+    <script src="{% static 'vendor/lucide/lucide.min.js' %}"></script>
+{% endraw %}
+{% if cookiecutter.include_leaflet_maps == "y" %}
+{% raw %}    <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>{% endraw %}
+{% endif %}
+{% if cookiecutter.include_kanban == "y" %}
+{% raw %}    <script src="{% static 'vendor/sortable/sortable.min.js' %}"></script>{% endraw %}
+{% endif %}
+{% raw %}
+    <style>
+        [x-cloak] { display: none !important; }
+        .htmx-indicator { display: none; }
+        .htmx-request .htmx-indicator { display: inline-block; }
+        .htmx-request.htmx-indicator { display: inline-block; }
+        html { -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-base-100 text-base-content">
+    {% include 'components/navbar.html' %}
+
+    <!-- Global Floating Toast Container -->
+    <div id="toast-container" class="toast toast-top toast-end z-50 p-4 pointer-events-none">
+        {% include 'components/messages.html' %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include 'components/footer.html' %}
+
+    <script>
+        // Automatically attach Django CSRF Token to ALL HTMX requests
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            const getCookie = (name) => {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            };
+            event.detail.headers['X-CSRFToken'] = getCookie('csrftoken');
+        });
+
+        // Re-initialize Lucide vector icons whenever HTMX swaps new DOM elements
+        document.body.addEventListener('htmx:afterSwap', function() {
+            if (window.lucide) { lucide.createIcons(); }
+        });
+        if (window.lucide) { lucide.createIcons(); }
+    </script>
+</body>
+</html>
+{% endraw %}

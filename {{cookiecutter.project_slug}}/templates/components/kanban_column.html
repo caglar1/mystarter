@@ -1,0 +1,24 @@
+{% raw %}<div x-data="{
+    initKanban() {
+        new Sortable(this.$refs.kanbanList, {
+            group: 'kanban_board',
+            animation: 150,
+            ghostClass: 'opacity-40',
+            onEnd: (evt) => {
+                console.log('Kart taşındı:', evt.item.dataset.id);
+            }
+        });
+    }
+}" x-init="initKanban()" class="flex-1 bg-base-200/60 rounded-2xl p-4 border border-base-300 min-w-[280px]">
+    <h3 class="font-bold text-sm mb-3 flex items-center justify-between">
+        <span>{{ column_title|default:"Kolon" }}</span>
+        <span class="badge badge-sm badge-neutral">{{ cards|length }}</span>
+    </h3>
+    <div x-ref="kanbanList" class="space-y-3 min-h-[150px]">
+        {% for card in cards %}
+            <div data-id="{{ card.id }}" class="card bg-base-100 p-3 shadow-sm border border-base-200 cursor-grab active:cursor-grabbing hover:shadow">
+                <span class="text-sm font-medium">{{ card.title }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div>{% endraw %}

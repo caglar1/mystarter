@@ -1,0 +1,12 @@
+{% raw %}<div id="sync-container" class="flex items-center justify-between p-3 bg-base-100 rounded-xl border border-base-200 shadow-sm text-xs">
+    <div id="sync-status">
+        {% include "components/sync_status_badge.html" %}
+    </div>
+    <button hx-post="{% url 'connectors:sync_news' %}"
+            hx-target="#sync-status"
+            hx-swap="innerHTML"
+            class="btn btn-ghost btn-xs text-primary gap-1">
+        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+        <span>Yenile</span>
+    </button>
+</div>{% endraw %}

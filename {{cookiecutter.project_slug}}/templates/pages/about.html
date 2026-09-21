@@ -1,0 +1,28 @@
+{% raw %}{% extends 'base.html' %}
+{% block title %}Hakkımızda | {% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-16 space-y-6">
+    <h1 class="text-3xl font-extrabold text-primary">Hakkımızda</h1>
+    <p class="text-base leading-relaxed text-base-content/80">
+        Kurumumuz, işletmelerin dijital dönüşüm süreçlerinde en hafif, en güvenli ve en sürdürülebilir yazılım mimarilerini sunmayı hedefler.
+    </p>
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full border border-base-200">
+        <div class="stat">
+            <div class="stat-title">Tamamlanan Proje</div>
+            <div class="stat-value text-primary">150+</div>
+            <div class="stat-desc">2021 yılından bu yana</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Müşteri Memnuniyeti</div>
+            <div class="stat-value text-success">%99.4</div>
+            <div class="stat-desc">Doğrulanmış geri bildirim</div>
+        </div>
+        <div class="stat">
+            <div class="stat-title">Ortalama Yüklenme</div>
+            <div class="stat-value text-accent">&lt; 0.4s</div>
+            <div class="stat-desc">Ultra hafif sayfa ağırlığı</div>
+        </div>
+    </div>
+</div>
+{% endblock %}{% endraw %}

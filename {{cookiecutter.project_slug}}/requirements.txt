@@ -1,0 +1,35 @@
+# Web Framework & Core
+Django>=5.1.0,<5.2.0
+django-htmx>=1.21.0
+whitenoise>=6.7.0
+
+# Database URL Parser (SQLite dev <-> PostgreSQL prod)
+dj-database-url>=2.2.0
+psycopg2-binary>=2.9.9
+
+# Form Rendering with DaisyUI & Tailwind
+django-widget-tweaks>=1.5.0
+
+# External HTTP Client
+httpx>=0.27.0
+
+# Spam & Bot Protection (Invisible honeypot)
+django-honeypot>=1.2.0
+
+# Transactional Email (Resend / SMTP support)
+django-anymail[resend]>=11.1
+
+# Environment Variables & Config
+python-dotenv>=1.0.1
+
+# Image Handling
+Pillow>=10.4.0
+
+{% if cookiecutter.include_news_scraper == "y" %}
+# News Ingestion & Article Extraction
+feedparser>=6.0.11
+newspaper4k>=0.9.3
+{% endif %}
+
+# Production WSGI Server
+gunicorn>=22.0.0

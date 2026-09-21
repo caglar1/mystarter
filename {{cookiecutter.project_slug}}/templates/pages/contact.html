@@ -1,0 +1,39 @@
+{% raw %}{% extends 'base.html' %}
+{% block title %}İletişim | {% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div class="space-y-6">
+            <h1 class="text-3xl font-extrabold text-primary">Bizimle İletişime Geçin</h1>
+            <p class="text-base-content/80">Projeniz hakkında görüşmek veya hızlı teklif almak için formu doldurabilirsiniz.</p>
+            
+            <div class="space-y-3 text-sm">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="map-pin" class="w-5 h-5 text-primary"></i>
+                    <span>İstanbul, Türkiye</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i data-lucide="mail" class="w-5 h-5 text-primary"></i>
+                    <span>info@example.com</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i data-lucide="phone" class="w-5 h-5 text-primary"></i>
+                    <span>+90 (212) 555 00 00</span>
+                </div>
+            </div>
+
+            <!-- Optional Leaflet Map -->
+            {% if include_map|default:True %}
+                <div class="pt-4">
+                    {% include 'components/map.html' %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            {% include 'partials/inquiry_form.html' with form=form %}
+        </div>
+    </div>
+</div>
+{% endblock %}{% endraw %}

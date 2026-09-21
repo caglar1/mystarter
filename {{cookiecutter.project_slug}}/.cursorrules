@@ -1,0 +1,58 @@
+# ==============================================================================
+# AI CODING AGENT RULES & STACK DIRECTIVE (.cursorrules)
+# ==============================================================================
+# Project: {{ cookiecutter.project_name }}
+# Architecture: HAT Stack (Django 5.1 + HTMX + Alpine.js + Tailwind CSS & DaisyUI)
+
+# ------------------------------------------------------------------------------
+# 1. CORE STACK DEFINITIONS (IMMUTABLE BASE)
+# ------------------------------------------------------------------------------
+# Backend:       Python 3.12+ & Django 5.1+
+# Frontend AJAX: HTMX (hx-get, hx-post, hx-target, hx-swap) + django-htmx (Self-Hosted: static/vendor/htmx/)
+# Local UI:      Alpine.js (Modals, drawers, tabs, toast auto-dismiss: static/vendor/alpine/)
+# Styling:       Tailwind CSS 3.4+ & DaisyUI 4.12+ (DaisyUI Self-Hosted: static/vendor/daisyui/daisyui.min.css)
+#                - Dev: Tailwind Play CDN (<script src="https://cdn.tailwindcss.com"></script>)
+#                - Prod: Compiled styles.css via Standalone Tailwind CLI (No Node.js)
+# Icons:         Lucide Icons (UMD Self-Hosted: static/vendor/lucide/lucide.min.js)
+# Feedback:      DaisyUI Toast (<div class="toast toast-top toast-end">) + Django Messages + Alpine.js auto-dismiss (4s)
+# Loading:       DaisyUI Skeletons (<div class="skeleton">) for HTMX loading states
+# Forms:         django-widget-tweaks (Render DaisyUI input/textarea classes directly)
+# Security:      django-honeypot (Invisible bot trap on all forms)
+# Email:         django-anymail / SMTP
+# Database:      dj-database-url (SQLite dev <-> PostgreSQL prod)
+# Mobile/PWA:    Web App Manifest (manifest.json) & standalone mode
+{% if cookiecutter.include_leaflet_maps == "y" %}
+# Maps:          Vanilla Leaflet.js 1.9+ (Self-Hosted: static/vendor/leaflet/) & Stadia Maps (Alidade Smooth)
+# Geo/Distance:  Pure Python Haversine & Bounding Box (No heavy GDAL/GEOS/PostGIS dependencies)
+{% else %}
+# Maps:          [DISABLED] Do NOT add or suggest map libraries unless requested.
+{% endif %}
+{% if cookiecutter.include_kanban == "y" %}
+# Kanban / DnD:  SortableJS 1.15+ (Mobile & Touch Drag & Drop: static/vendor/sortable/)
+{% endif %}
+{% if cookiecutter.include_llm_gateway == "y" %}
+# AI / LLM:      apps.connectors.llm.LLMClient (Universal httpx Gateway with effort normalization)
+{% endif %}
+{% if cookiecutter.include_news_scraper == "y" %}
+# News Pipeline: feedparser 6.0+ (RSS discovery) & newspaper4k 0.9+ (Clean text/image scraper)
+{% endif %}
+
+# ------------------------------------------------------------------------------
+# 2. STRICT PROHIBITIONS (DO NOT DEVIATE)
+# ------------------------------------------------------------------------------
+# ❌ NEVER use React, Vue, Svelte, Next.js, or jQuery.
+# ❌ NEVER use FontAwesome, Bootstrap Icons, or Material Icons. (Use ONLY Lucide Icons).
+# ❌ NEVER use Flowbite, Preline, Bootstrap, or custom CSS frameworks. (Use ONLY DaisyUI + Tailwind).
+# ❌ NEVER install heavy LLM SDKs (openai, anthropic, langchain, litellm).
+# ❌ NEVER install external search servers (Elasticsearch, Meilisearch, Typesense). (Use PostgreSQL Built-in FTS or SQLite fallback).
+# ❌ NEVER inject 3rd-party CDN script/link tags. Core libraries MUST load locally from static/vendor/.
+# ❌ NEVER write custom JS fetch()/axios calls for server communication. (Use ONLY HTMX).
+# ❌ NEVER use Alpine.js to make HTTP requests or manage server state.
+# ❌ NEVER install Node.js / npm just for Tailwind or frontend assets. (Use Standalone Tailwind CLI binary).
+# ❌ NEVER silently install or import unapproved packages/libraries.
+
+# ------------------------------------------------------------------------------
+# 3. 🚨 STACK EXTENSION & NEW PACKAGE APPROVAL PROTOCOL
+# ------------------------------------------------------------------------------
+# If a specific project feature genuinely requires a new library not in the base stack:
+# YOU MUST STOP AND ASK THE USER FOR EXPLICIT PERMISSION FIRST.

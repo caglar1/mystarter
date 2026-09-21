@@ -1,0 +1,20 @@
+{% raw %}<div x-data="{
+    map: null,
+    initMap() {
+        const lat = 41.0082;
+        const lng = 28.9784;
+        
+        this.map = L.map(this.$refs.mapContainer, {
+            scrollWheelZoom: false
+        }).setView([lat, lng], 13);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href='https://openstreetmap.org'>OpenStreetMap</a>'
+        }).addTo(this.map);
+
+        L.marker([lat, lng]).addTo(this.map).bindPopup('<b>Şirket Merkezi</b><br>İstanbul, Türkiye').openPopup();
+    }
+}" x-init="initMap()" class="w-full">
+    <div x-ref="mapContainer" class="w-full h-80 rounded-2xl shadow-md border border-base-200 z-0"></div>
+</div>{% endraw %}

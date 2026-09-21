@@ -1,0 +1,8 @@
+{% raw %}{% if latest_log %}
+    <span class="badge badge-sm {% if latest_log.status == 'success' %}badge-success text-success-content{% else %}badge-error text-error-content{% endif %} gap-1">
+        <i data-lucide="check" class="w-3 h-3"></i>
+        {{ latest_log.task_name }}: {{ latest_log.items_count }} öge
+    </span>
+{% else %}
+    <span class="badge badge-sm badge-ghost">Senkronizasyon bekleniyor</span>
+{% endif %}{% endraw %}

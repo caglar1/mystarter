@@ -1,0 +1,24 @@
+{% raw %}{% extends 'base.html' %}
+{% block title %}Hizmetlerimiz | {% endraw %}{{ cookiecutter.project_name }}{% raw %}{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-16 space-y-8">
+    <div class="text-center max-w-2xl mx-auto">
+        <h1 class="text-3xl font-extrabold text-primary">Hizmetlerimiz</h1>
+        <p class="text-base-content/70 mt-2">İşletmenize özel tasarlanmış uçtan uca modern çözümler.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card bg-base-100 p-6 border border-base-200 shadow-sm space-y-3">
+            <i data-lucide="code-2" class="w-8 h-8 text-primary"></i>
+            <h3 class="text-lg font-bold">Özel Web Uygulama Geliştirme</h3>
+            <p class="text-sm text-base-content/70">Yüksek trafik altında dahi kararlı çalışan, veritabanı optimizasyonlu kurumsal portallar.</p>
+        </div>
+        <div class="card bg-base-100 p-6 border border-base-200 shadow-sm space-y-3">
+            <i data-lucide="database" class="w-8 h-8 text-secondary"></i>
+            <h3 class="text-lg font-bold">Veri Entegrasyonu & API Bağlayıcılar</h3>
+            <p class="text-sm text-base-content/70">Dış servisler, RSS akışları, harita ve coğrafi veriler ile otomatik senkronizasyon.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}{% endraw %}

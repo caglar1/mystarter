@@ -1,0 +1,53 @@
+{% raw %}{% load widget_tweaks %}
+{% load honeypot %}
+
+<div id="inquiry-form-container" class="card bg-base-100 shadow-xl border border-base-200 p-6">
+    <h3 class="text-xl font-bold flex items-center gap-2 mb-4 text-primary">
+        <i data-lucide="send" class="w-5 h-5"></i>
+        Hızlı Teklif Talebi
+    </h3>
+    
+    <form hx-post="{% url 'inquiries:submit' %}" 
+          hx-target="#inquiry-form-container" 
+          hx-swap="outerHTML" 
+          class="space-y-4">
+        {% csrf_token %}
+        {% render_honeypot_field %}
+        
+        <div class="form-control">
+            <label class="label"><span class="label-text font-semibold">Adınız Soyadınız</span></label>
+            <div class="relative">
+                {% render_field form.full_name class="input input-bordered w-full pl-10" placeholder="Örn: Ahmet Yılmaz" %}
+                <i data-lucide="user" class="w-5 h-5 text-base-content/40 absolute left-3 top-3"></i>
+            </div>
+            {% if form.full_name.errors %}
+                <span class="text-error text-xs mt-1">{{ form.full_name.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-control">
+            <label class="label"><span class="label-text font-semibold">E-posta Adresiniz</span></label>
+            <div class="relative">
+                {% render_field form.email class="input input-bordered w-full pl-10" placeholder="ahmet@example.com" %}
+                <i data-lucide="mail" class="w-5 h-5 text-base-content/40 absolute left-3 top-3"></i>
+            </div>
+            {% if form.email.errors %}
+                <span class="text-error text-xs mt-1">{{ form.email.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-control">
+            <label class="label"><span class="label-text font-semibold">Mesajınız / Talep Detayı</span></label>
+            {% render_field form.message class="textarea textarea-bordered h-24" placeholder="Projeniz hakkında kısa bilgi verin..." %}
+            {% if form.message.errors %}
+                <span class="text-error text-xs mt-1">{{ form.message.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full flex items-center justify-center gap-2">
+            <span class="htmx-indicator loading loading-spinner loading-xs"></span>
+            <span>Teklifi Gönder</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+    </form>
+</div>{% endraw %}

@@ -1,0 +1,39 @@
+{% raw %}<header class="navbar bg-base-100/90 backdrop-blur border-b border-base-200 sticky top-0 z-40 px-4 lg:px-8">
+    <div class="navbar-start">
+        <!-- Mobile Drawer / Hamburger Toggle -->
+        <div class="dropdown lg:hidden">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow-lg bg-base-100 rounded-box w-52 space-y-1 border border-base-200">
+                <li><a href="{% url 'pages:home' %}">Ana Sayfa</a></li>
+                <li><a href="{% url 'pages:services' %}">Hizmetler</a></li>
+                <li><a href="{% url 'pages:about' %}">Hakkımızda</a></li>
+                <li><a href="{% url 'pages:contact' %}">İletişim</a></li>
+                <li><a href="{% url 'pages:ui_kit' %}" class="text-primary font-medium">🎨 UI Kit</a></li>
+            </ul>
+        </div>
+        
+        <a href="{% url 'pages:home' %}" class="btn btn-ghost text-xl font-bold gap-2 text-primary">
+            <i data-lucide="sparkles" class="w-5 h-5 text-primary"></i>
+            <span>{% endraw %}{{ cookiecutter.project_name }}{% raw %}</span>
+        </a>
+    </div>
+
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1 font-medium gap-1">
+            <li><a href="{% url 'pages:home' %}" class="rounded-lg">Ana Sayfa</a></li>
+            <li><a href="{% url 'pages:services' %}" class="rounded-lg">Hizmetler</a></li>
+            <li><a href="{% url 'pages:about' %}" class="rounded-lg">Hakkımızda</a></li>
+            <li><a href="{% url 'pages:contact' %}" class="rounded-lg">İletişim</a></li>
+            <li><a href="{% url 'pages:ui_kit' %}" class="rounded-lg text-primary font-semibold">🎨 UI Kit</a></li>
+        </ul>
+    </div>
+
+    <div class="navbar-end gap-2">
+        <a href="{% url 'pages:contact' %}" class="btn btn-primary btn-sm rounded-lg shadow-sm">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Teklif Al</span>
+        </a>
+    </div>
+</header>{% endraw %}
