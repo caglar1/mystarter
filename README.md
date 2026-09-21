@@ -28,11 +28,10 @@ pip install cookiecutter
 ```
 
 ### 2. Şablonu Çalıştırın
-Yerel klasör üzerinden:
+Dünyanın her yerinden tek bir komutla yeni proje üretebilirsiniz:
 ```bash
-cookiecutter /Users/caglar/Desktop/starterpack
+cookiecutter gh:caglar1/mystarter
 ```
-*(Veya doğrudan GitHub'dan: `cookiecutter gh:caglar1/mystarter`)*
 
 ### 3. Etkileşimli Seçenekler
 | Seçenek | Varsayılan | Açıklama |
@@ -100,12 +99,25 @@ Ağır SDK'lar (`openai`, `langchain`, `litellm`) yerine saf Python ve `httpx` i
   ```
 * **Reasoning Bütçelemesi:** `effort="none" | "low" | "medium" | "high"` parametresi sayesinde Claude 3.7 / OpenAI o-serisi modellerinde düşünme jetonları otomatik yönetilir.
 
-### 3. 🔎 Hibrit Arama Motoru (PostgreSQL FTS + SQLite Fallback)
+### 3. 🔐 Kimlik Doğrulama & Yetkilendirme (Zero-Bloat Auth)
+* **Yerleşik Standart:** Proje, onlarca veritabanı tablosu ve karmaşık şablon yükü getiren `django-allauth` yerine; Django'nun yerleşik, güvenli ve hafif `django.contrib.auth` modülünü kullanır.
+* **Hazır Güvenlik:** PBKDF2 şifreleme, oturum (session) yönetimi ve Django Admin paneli ilk andan itibaren aktiftir.
+
+### 4. ⚡ Asenkron & LLM Yanıt Stratejisi (Zero-Celery Mimarisi)
+LLM sorguları 5-20 saniye sürebilir. 5$'lık bir sunucuyu Redis veya Celery gibi bellek canavarı harici kuyruklarla ağırlaştırmamak adına iki hafif yöntem benimsenmiştir:
+1. **Streaming (SSE):** Canlı yanıtlarda Django 5.1'in `StreamingHttpResponse` mekanizması veya HTMX Server-Sent Events (SSE) kullanılarak yanıtın kelime kelime akması sağlanır; worker kilitlenmez.
+2. **Management Commands:** Toplu veri işleme ve kazıma işleri için arka planda çalışan Django Management Commands (`sync_news`, `sync_overpass`) ve Cron kullanılır.
+
+### 5. 🔎 Hibrit Arama Motoru (PostgreSQL FTS + SQLite Fallback)
 Harici arama sunucularına (Elasticsearch, Meilisearch) gerek bırakmayan akıllı mimari:
 * **Canlıda (PostgreSQL):** `django.contrib.postgres.search` üzerinden A/B/C ağırlıklı `SearchVector`, `websearch` sorguları ve `SearchRank` ile relevance skoru hesaplar.
 * **Geliştirmede (SQLite):** Geliştirme ortamında PostgreSQL zorunluluğu getirmeden, güvenli ve hızlı `icontains` fallback'i ile sıfır konfigürasyonla çalışır.
 
-### 4. 📦 Statik Dosyalar & WhiteNoise
+### 6. 📰 İçerik Kazıma & Telif / Adil Kullanım (Fair Use)
+* `newspaper4k` ve `feedparser` modülleri ile otomatik içerik çekerken hedef kaynakların `robots.txt` kurallarına ve kullanım koşullarına (ToS) saygı gösterilmelidir.
+* Şablondaki `news_card.html` bileşeni, okuyucuyu orijinal kaynağa yönlendiren *"Kaynaktaki tüm yazıyı oku"* bağlantısı içererek **Adil Kullanım (Traffic Attribution)** standardını uygular.
+
+### 7. 📦 Statik Dosyalar & WhiteNoise
 * Canlı ortamda Nginx reverse proxy arkasında veya doğrudan Gunicorn ile çalışırken statik dosyalar **WhiteNoise** ile optimize sunulur.
 * Gzip ve Brotli sıkıştırma, benzersiz hash'li dosya isimleri (cache-busting) ve `WHITENOISE_MANIFEST_STRICT = False` güvenlik supabı hazırdır.
 
